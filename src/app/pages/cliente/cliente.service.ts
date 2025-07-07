@@ -15,7 +15,9 @@ export interface Cliente {
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:3000/ClientController';
+  // private apiUrl = 'http://localhost:3000/ClientController';
+  private apiUrl = 'https://webfinal-micro.onrender.com/ClientController';
+
 
   constructor(private http: HttpClient) {}
 

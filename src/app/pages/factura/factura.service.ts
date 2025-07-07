@@ -44,27 +44,29 @@ export interface PagoPayload {
   providedIn: 'root'
 })
 export class FacturaService {
-  private baseUrl = 'http://localhost:3000/FacturaController';
-  private servicioUrl = 'http://localhost:3000/ServicioController';
+//   private baseUrl = 'http://localhost:3000/FacturaController';
+  private baseUrl = 'https://webfinal-micro.onrender.com/FacturaController';
+  private servicioUrl = 'https://webfinal-micro.onrender.com/ServicioController';
+//   private servicioUrl = 'http://localhost:3000/ServicioController';
 
   constructor(private http: HttpClient) {}
 
- 
+
   getFacturas(): Observable<Factura[]> {
     return this.http.get<Factura[]>(this.baseUrl);
   }
 
- 
+
   crearFactura(factura: Factura): Observable<Factura> {
     return this.http.post<Factura>(this.baseUrl, factura);
   }
 
-  
+
   getServicios(): Observable<Servicio[]> {
     return this.http.get<Servicio[]>(this.servicioUrl);
   }
 
- 
+
   pagarFactura(idFactura: number, payload: PagoPayload): Observable<Factura> {
     return this.http.patch<Factura>(`${this.baseUrl}/${idFactura}`, payload);
   }

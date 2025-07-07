@@ -13,7 +13,8 @@ export interface ServicioPayload {
   providedIn: 'root'
 })
 export class ServicioService {
-  private baseUrl = 'http://localhost:3000';
+  // private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://webfinal-micro.onrender.com';
 
   constructor(private http: HttpClient) {}
 

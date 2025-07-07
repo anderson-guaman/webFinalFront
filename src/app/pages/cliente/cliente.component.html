@@ -1,5 +1,39 @@
-<p>cliente works!</p>
+<div class="max-w-4xl mx-auto mt-8 p-4">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Clientes</h1>
 
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
+  <!-- Lista de clientes -->
+  <table class="w-full table-auto border-collapse border border-gray-300 mb-6">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2 border">Nombre</th>
+        <th class="p-2 border">Correo</th>
+        <th class="p-2 border">Teléfono</th>
+        <th class="p-2 border">Identificación</th>
+        <th class="p-2 border">Dirección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes" class="hover:bg-gray-50">
+        <td class="p-2 border">{{ cliente.nombre }}</td>
+        <td class="p-2 border">{{ cliente.correo }}</td>
+        <td class="p-2 border">{{ cliente.telefono }}</td>
+        <td class="p-2 border">{{ cliente.identificacion }}</td>
+        <td class="p-2 border">{{ cliente.direccion }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para nuevo cliente -->
+  <form (ngSubmit)="crearCliente()" class="grid gap-4">
+   
+    <input class="border p-2" [(ngModel)]="nuevoCliente.nombre" name="nombre" placeholder="Nombre" required />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.correo" name="correo" placeholder="Correo (único)" required type="email" />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.telefono" name="telefono" placeholder="Teléfono" required />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.identificacion" name="identificacion" placeholder="Identificación" required />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.direccion" name="direccion" placeholder="Dirección" required />
+
+    <button class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" type="submit">
+      Crear Cliente
+    </button>
+  </form>
+</div>

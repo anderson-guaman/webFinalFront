@@ -1,0 +1,62 @@
+<div class="max-w-4xl mx-auto mt-8 p-4">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Planes de Servicio</h1>
+
+  <!-- Tabla de planes -->
+  <table class="w-full table-auto border-collapse border border-gray-300 mb-6">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2 border">ID</th>
+        <th class="p-2 border">Nombre</th>
+        <th class="p-2 border">Precio Mensual</th>
+        <th class="p-2 border">Características</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of planes" class="hover:bg-gray-50">
+        <td class="p-2 border text-center">{{ plan.idPlan }}</td>
+        <td class="p-2 border">{{ plan.nombrePlan }}</td>
+        <td class="p-2 border">$ {{ plan.precioMensual }}</td>
+        <td class="p-2 border whitespace-pre-wrap">{{ plan.caracteristicas }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para nuevo plan -->
+  <h2 class="text-xl font-semibold text-gray-700 mb-4">Nuevo Plan</h2>
+
+  <form (ngSubmit)="agregarPlan()" class="grid gap-4">
+    <input
+      class="border p-2"
+      [(ngModel)]="nuevoPlan.nombrePlan"
+      name="nombrePlan"
+      placeholder="Nombre del Plan"
+      required
+    />
+
+    <input
+      class="border p-2"
+      [(ngModel)]="nuevoPlan.precioMensual"
+      name="precioMensual"
+      placeholder="Precio Mensual"
+      type="number"
+      step="0.01"
+      required
+    />
+
+    <textarea
+      class="border p-2"
+      [(ngModel)]="nuevoPlan.caracteristicas"
+      name="caracteristicas"
+      placeholder="Características del Plan"
+      rows="4"
+      required
+    ></textarea>
+
+    <button
+      class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+      type="submit"
+    >
+      Crear Plan
+    </button>
+  </form>
+</div>

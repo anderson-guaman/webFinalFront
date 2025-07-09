@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface ServicioPayload {
   nombre: string;
@@ -14,7 +15,7 @@ export interface ServicioPayload {
 })
 export class ServicioService {
   // private baseUrl = 'http://localhost:3000';
-  private baseUrl = 'https://webfinal-micro.onrender.com';
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 

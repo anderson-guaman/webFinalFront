@@ -38,10 +38,10 @@
       Crear Cliente
     </button>
 
+    @if (nuevoCliente.idCliente) {
+    <button class="bg-emerald-500 text-white p-2 rounded hover:bg-blue-700" (click)="actualizarCliente()">
+      Editar Cliente
+    </button>
+    }
   </form>
-  @if (nuevoCliente.idCliente) {
-  <button class="bg-emerald-500 text-white p-2 rounded hover:bg-blue-700" (click)="actualizarCliente()">
-    Editar Cliente
-  </button>
-  }
 </div>

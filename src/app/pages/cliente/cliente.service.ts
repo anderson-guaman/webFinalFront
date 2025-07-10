@@ -21,7 +21,7 @@ export class ClienteService {
   private apiUrl = `${this.urlBase}/ClientController`
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.apiUrl);
@@ -29,5 +29,8 @@ export class ClienteService {
 
   crearCliente(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.apiUrl, cliente);
+  }
+  actualizarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.patch<Cliente>(`${this.apiUrl}/${cliente.idCliente}`, cliente);
   }
 }

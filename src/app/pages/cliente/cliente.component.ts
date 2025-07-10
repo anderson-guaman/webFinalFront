@@ -21,7 +21,7 @@ export class ClienteComponent implements OnInit {
     correo: ''
   };
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit(): void {
     this.obtenerClientes();
@@ -34,35 +34,48 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-crearCliente(): void {
-  const { nombre, direccion, telefono, identificacion, correo } = this.nuevoCliente;
+  crearCliente(): void {
+    const { nombre, direccion, telefono, identificacion, correo } = this.nuevoCliente;
 
-  // Armamos manualmente el payload
-  const clientePayload = {
-    nombre: nombre.trim(),
-    direccion: direccion.trim(),
-    telefono: telefono.trim(),
-    identificacion: identificacion.trim(),
-    correo: correo.trim()
-  };
+    // Armamos manualmente el payload
+    const clientePayload = {
+      nombre: nombre.trim(),
+      direccion: direccion.trim(),
+      telefono: telefono.trim(),
+      identificacion: identificacion.trim(),
+      correo: correo.trim()
+    };
 
-  this.clienteService.crearCliente(clientePayload).subscribe({
-    next: (clienteCreado) => {
-      this.clientes.push(clienteCreado);
-      // Limpiar formulario
-      this.nuevoCliente = {
-        nombre: '',
-        direccion: '',
-        telefono: '',
-        identificacion: '',
-        correo: ''
-      };
-    },
-    error: (err) => {
-      alert('Error: '+ err.error.message);
-    }
-  });
-}
+    this.clienteService.crearCliente(clientePayload).subscribe({
+      next: (clienteCreado) => {
+        this.clientes.push(clienteCreado);
+        // Limpiar formulario
+        this.nuevoCliente = {
+          nombre: '',
+          direccion: '',
+          telefono: '',
+          identificacion: '',
+          correo: ''
+        };
+      },
+      error: (err) => {
+        alert('Error: ' + err.error.message);
+      }
+    });
+  }
 
-
+  actualizarCliente(){
+    this.clienteService.actualizarCliente(this.nuevoCliente)
+    .subscribe({
+      next:()=>{
+        alert('Cliente creado exitosamente ')
+      },
+      error:(error)=>{
+        alert('Error: ' + error.error.message);
+      }
+    })
+  }
+  paraActualizar(cliente:Cliente){
+    this.nuevoCliente= cliente;
+  }
 }

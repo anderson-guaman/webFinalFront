@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cliente of clientes" class="hover:bg-gray-50">
+      <tr *ngFor="let cliente of clientes" class="hover:bg-gray-50" (click)="paraActualizar(cliente)">
         <td class="p-2 border">{{ cliente.nombre }}</td>
         <td class="p-2 border">{{ cliente.correo }}</td>
         <td class="p-2 border">{{ cliente.telefono }}</td>
@@ -25,15 +25,24 @@
 
   <!-- Formulario para nuevo cliente -->
   <form (ngSubmit)="crearCliente()" class="grid gap-4">
-   
+
     <input class="border p-2" [(ngModel)]="nuevoCliente.nombre" name="nombre" placeholder="Nombre" required />
-    <input class="border p-2" [(ngModel)]="nuevoCliente.correo" name="correo" placeholder="Correo (único)" required type="email" />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.correo" name="correo" placeholder="Correo (único)" required
+      type="email" />
     <input class="border p-2" [(ngModel)]="nuevoCliente.telefono" name="telefono" placeholder="Teléfono" required />
-    <input class="border p-2" [(ngModel)]="nuevoCliente.identificacion" name="identificacion" placeholder="Identificación" required />
+    <input class="border p-2" [(ngModel)]="nuevoCliente.identificacion" name="identificacion"
+      placeholder="Identificación" required />
     <input class="border p-2" [(ngModel)]="nuevoCliente.direccion" name="direccion" placeholder="Dirección" required />
 
+
+    @if (nuevoCliente.idCliente) {
+    <button class="bg-emerald-500 text-white p-2 rounded hover:bg-blue-700" (click)="actualizarCliente()">
+      Editar Cliente
+    </button>
+    }@else {
     <button class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" type="submit">
       Crear Cliente
     </button>
+    }
   </form>
 </div>

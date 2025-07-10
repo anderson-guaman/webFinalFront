@@ -49,7 +49,6 @@ crearCliente(): void {
   this.clienteService.crearCliente(clientePayload).subscribe({
     next: (clienteCreado) => {
       this.clientes.push(clienteCreado);
-
       // Limpiar formulario
       this.nuevoCliente = {
         nombre: '',
@@ -60,8 +59,7 @@ crearCliente(): void {
       };
     },
     error: (err) => {
-      console.error('Error al crear cliente:', err);
-      alert('Error al crear cliente. Verifica que los datos no estén repetidos y el servidor esté funcionando.');
+      alert('Error: '+ err.error.message);
     }
   });
 }

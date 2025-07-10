@@ -5,64 +5,64 @@ import { HttpClientModule } from '@angular/common/http';
 import { FacturaService, Factura, Servicio } from './factura.service';
 
 @Component({
-  selector: 'app-factura',
-  standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, CurrencyPipe, DatePipe],
-  templateUrl: './factura.component.html',
+  selector: 'app-factura',
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule, CurrencyPipe, DatePipe],
+  templateUrl: './factura.component.html',
 })
 export class FacturaComponent implements OnInit {
-  facturasPendientes: Factura[] = [];
+  facturasPendientes: Factura[] = [];
   facturasPagadas: Factura[] = [];
-  serviciosDisponibles: Servicio[] = [];
+  serviciosDisponibles: Servicio[] = [];
 
-  nuevaFactura: any = {
-    fechaEmision: '',
-    monto: null,
-    servicioId: null,
-    fechaPago: null
-  };
+  nuevaFactura: any = {
+    fechaEmision: '',
+    monto: null,
+    servicioId: null,
+    fechaPago: null
+  };
 
-  constructor(private facturaService: FacturaService) {}
+  constructor(private facturaService: FacturaService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {
     this.cargarFacturas();
     this.cargarServicios();
-  }
+  }
 
   cargarFacturas(): void {
     this.facturaService.getFacturas().subscribe({
-      next: (data) => {
+      next: (data) => {
         this.facturasPendientes = data.filter(factura => !factura.fechaPago);
         this.facturasPagadas = data.filter(factura => !!factura.fechaPago);
       },
-      error: (err) => console.error('Error al cargar facturas', err)
-    });
+      error: (err) => console.error('Error al cargar facturas', err)
+    });
   }
 
   cargarServicios(): void {
     this.facturaService.getServicios().subscribe({
-      next: (data) => this.serviciosDisponibles = data,
-      error: (err) => console.error('Error al cargar servicios', err)
-    });
+      next: (data) => this.serviciosDisponibles = data,
+      error: (err) => console.error('Error al cargar servicios', err)
+    });
   }
 
-  crearFactura(): void {
-    if (!this.nuevaFactura.fechaEmision || !this.nuevaFactura.monto || !this.nuevaFactura.servicioId) {
+  crearFactura(): void {
+    if (!this.nuevaFactura.fechaEmision || !this.nuevaFactura.monto || !this.nuevaFactura.servicioId) {
       alert('Por favor, completa todos los campos del formulario.');
       return;
     }
 
-    this.facturaService.crearFactura(this.nuevaFactura).subscribe({
-      next: (nueva) => {
-        this.facturasPendientes.push(nueva);
-        this.nuevaFactura = { fechaEmision: '', monto: null, servicioId: null, fechaPago: null };
-      },
-      error: (err) => {
+    this.facturaService.crearFactura(this.nuevaFactura).subscribe({
+      next: (nueva) => {
+        this.facturasPendientes.push(nueva);
+        this.nuevaFactura = { fechaEmision: '', monto: null, servicioId: null, fechaPago: null };
+      },
+      error: (err) => {
         console.error('Error al crear factura', err);
         alert('Hubo un error al crear la factura. Revisa la consola para más detalles.');
       }
-    });
-  }
+    });
+  }
 
   /**
    * --- FUNCIÓN MODIFICADA PARA SOLUCIÓN VISUAL ---
@@ -77,15 +77,28 @@ export class FacturaComponent implements OnInit {
     }
 
     // 1. Eliminamos la factura de la lista de pendientes
-    this.facturasPendientes = this.facturasPendientes.filter(f => f.idFactura !== facturaAPagar.idFactura);
+    // this.facturasPendientes = this.facturasPendientes.filter(f => f.idFactura !== facturaAPagar.idFactura);
 
-    // 2. Creamos una copia de la factura y le asignamos la fecha de pago de hoy
-    const facturaPagada: Factura = {
-      ...facturaAPagar,
-      fechaPago: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
-    };
+    // // 2. Creamos una copia de la factura y le asignamos la fecha de pago de hoy
+    // const facturaPagada: Factura = {
+    //   ...facturaAPagar,
+    //   fechaPago: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
+    // };
 
-    // 3. Añadimos la factura actualizada a la lista de pagadas
-    this.facturasPagadas.push(facturaPagada);
+    // // 3. Añadimos la factura actualizada a la lista de pagadas
+    // this.facturasPagadas.push(facturaPagada);
+
+    this.facturaService.pagarFactura(facturaAPagar.idFactura,facturaAPagar)
+    .subscribe({
+      next:(fac)=>{
+        alert('pago con exito factura: '+ fac.idFactura)
+        this.cargarFacturas();
+      },
+      error:error=>{
+        alert(error)
+        this.cargarFacturas();
+      }
+    })
+
   }
 }

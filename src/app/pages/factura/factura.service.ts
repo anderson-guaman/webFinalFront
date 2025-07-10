@@ -69,7 +69,7 @@ export class FacturaService {
   }
 
 
-  pagarFactura(idFactura: number, payload: PagoPayload): Observable<Factura> {
-    return this.http.patch<Factura>(`${this.baseUrl}/${idFactura}`, payload);
+  pagarFactura(idFactura: number,factura:Factura): Observable<Factura> {
+    return this.http.patch<Factura>(`${this.baseUrl}/${idFactura}`,factura);
   }
 }

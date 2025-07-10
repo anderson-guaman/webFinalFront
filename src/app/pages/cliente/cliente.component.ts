@@ -50,13 +50,7 @@ export class ClienteComponent implements OnInit {
       next: (clienteCreado) => {
         this.clientes.push(clienteCreado);
         // Limpiar formulario
-        this.nuevoCliente = {
-          nombre: '',
-          direccion: '',
-          telefono: '',
-          identificacion: '',
-          correo: ''
-        };
+        this.limpiarFormulario();
       },
       error: (err) => {
         alert('Error: ' + err.error.message);
@@ -64,18 +58,30 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  actualizarCliente(){
-    this.clienteService.actualizarCliente(this.nuevoCliente)
-    .subscribe({
-      next:()=>{
-        alert('Cliente creado exitosamente ')
-      },
-      error:(error)=>{
-        alert('Error: ' + error.error.message);
-      }
-    })
+  limpiarFormulario() {
+    this.nuevoCliente = {
+      nombre: '',
+      direccion: '',
+      telefono: '',
+      identificacion: '',
+      correo: ''
+    };
   }
-  paraActualizar(cliente:Cliente){
-    this.nuevoCliente= cliente;
+
+  actualizarCliente() {
+    this.clienteService.actualizarCliente(this.nuevoCliente)
+      .subscribe({
+        next: () => {
+          alert('Cliente actualizado exitosamente ');
+          this.obtenerClientes();
+          this.limpiarFormulario();
+        },
+        error: (error) => {
+          alert('Error: ' + error.error.message);
+        }
+      })
+  }
+  paraActualizar(cliente: Cliente) {
+    this.nuevoCliente = cliente;
   }
 }

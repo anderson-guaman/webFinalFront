@@ -34,15 +34,14 @@
       placeholder="Identificación" required />
     <input class="border p-2" [(ngModel)]="nuevoCliente.direccion" name="direccion" placeholder="Dirección" required />
 
-
-    @if (nuevoCliente.idCliente) {
-    <button class="bg-emerald-500 text-white p-2 rounded hover:bg-blue-700" (click)="actualizarCliente()">
-      Editar Cliente
-    </button>
-    }@else {
     <button class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" type="submit">
       Crear Cliente
     </button>
-    }
+
   </form>
+  @if (nuevoCliente.idCliente) {
+  <button class="bg-emerald-500 text-white p-2 rounded hover:bg-blue-700" (click)="actualizarCliente()">
+    Editar Cliente
+  </button>
+  }
 </div>

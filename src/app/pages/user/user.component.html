@@ -1,0 +1,35 @@
+<div class="max-w-4xl mx-auto mt-8 p-4">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Usuarios</h1>
+
+  <!-- Lista de clientes -->
+  <table class="w-full table-auto border-collapse border border-gray-300 mb-6">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2 border">Nombre de Usuario</th>
+        <th class="p-2 border">Contraseña</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios" class="hover:bg-gray-50" (click)="paraActualizar(usuario)">
+        <td class="p-2 border">{{ usuario.userName }}</td>
+        <td class="p-2 border">{{ usuario.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para nuevo cliente -->
+  <form (ngSubmit)="crearUsuario()" class="grid gap-4">
+    <input class="border p-2" [(ngModel)]="nuevoUsuario.userName" name="nombre" placeholder="Nombre de usuario"
+      required />
+    <input class="border p-2" type="password" [(ngModel)]="nuevoUsuario.password" name="password" placeholder="Contraseña"
+      required />
+    <select class="border p-2" [(ngModel)]="nuevoUsuario.role" name="clienteId" required>
+      <option value="" disabled selected>Selecciona un rol</option>
+      <option value="admin">Administrador</option>
+      <option value="user">Usuario</option>
+    </select>
+    <button class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" type="submit">
+      Crear Cliente
+    </button>
+  </form>
+</div>

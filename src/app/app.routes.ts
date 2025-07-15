@@ -5,6 +5,7 @@ import { AdminPlanComponent } from './pages/adminplan/adminplan.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { RoleGuard } from './auth/guards/rol.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { UserComponent } from './pages/user/user.component';
 
 
 export const routes: Routes = [
@@ -33,6 +34,12 @@ export const routes: Routes = [
   {
     path: 'facturas',
     component: FacturaComponent,
+    canActivate: [RoleGuard],
+    data: { role: ['user', 'admin'] }
+  },
+    {
+    path: 'usuarios',
+    component: UserComponent,
     canActivate: [RoleGuard],
     data: { role: ['user', 'admin'] }
   },

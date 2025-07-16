@@ -24,7 +24,13 @@ export class ServicioService {
   }
 
   createServicio(servicio: ServicioPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/ServicioController`, servicio);
+
+    const nuevoServicio = {
+      ...servicio,
+      clienteId: +servicio.clienteId!,
+      planId: +servicio.planId!
+    }
+    return this.http.post(`${this.baseUrl}/ServicioController`, nuevoServicio);
   }
 
   getClientes(): Observable<any[]> {

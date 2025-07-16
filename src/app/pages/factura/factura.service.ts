@@ -30,8 +30,8 @@ export interface Servicio {
 
 export interface Factura {
   idFactura?: number;
-  fechaEmision: string;
-  monto: number | string;
+  fechaEmision?: string;
+  monto: number ;
   fechaPago?: string | null;
   servicioId: number;
   servicio?: Servicio;

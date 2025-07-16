@@ -42,8 +42,8 @@
   <!-- FORMULARIO PARA NUEVA FACTURA -->
   <h2 class="text-xl font-semibold text-gray-700 mb-4">Nueva Factura</h2>
   <form (ngSubmit)="crearFactura()" #facturaForm="ngForm" class="grid gap-4 mb-8">
-    <input class="border p-2" [(ngModel)]="nuevaFactura.fechaEmision" name="fechaEmision" type="date" required />
-    <input class="border p-2" [(ngModel)]="nuevaFactura.monto" name="monto" type="number" placeholder="Monto" required />
+    <!-- <input class="border p-2" [(ngModel)]="nuevaFactura.fechaEmision" name="fechaEmision" type="date" required />
+    <input class="border p-2" [(ngModel)]="nuevaFactura.monto" name="monto" type="number" placeholder="Monto" required /> -->
     <select class="border p-2" [(ngModel)]="nuevaFactura.servicioId" name="servicioId" required>
       <option [ngValue]="null" disabled>Selecciona un servicio</option>
       <option *ngFor="let servicio of serviciosDisponibles" [value]="servicio.idServicio">
